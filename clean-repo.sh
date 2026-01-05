@@ -7,7 +7,6 @@
 # Feito com projetos mantidos pelo Android Studio em mente.
 # ============================================================
 
-# Cores para ajudar no visual
 GREEN="\033[0;32m"
 YELLOW="\033[1;33m"
 RED="\033[0;31m"
@@ -19,7 +18,6 @@ echo -e "${BLUE}  LIMPEZA DE PROJETO ANDROID  ${RESET}"
 echo -e "${BLUE}==============================${RESET}"
 echo ""
 
-# Aviso e confirmação inicial
 echo -e "${YELLOW}ATENÇÃO:${RESET} Este script deve ser executado apenas se você ${RED}AINDA NÃO FEZ${RESET} alterações"
 echo -e "nos arquivos do repositório clonado. Ele irá limpar caches e reavaliar o .gitignore,"
 echo -e "podendo remover arquivos que não deveriam estar versionados."
@@ -35,19 +33,16 @@ echo ""
 echo -e "${GREEN}Confirmado, iniciando limpeza...${RESET}"
 echo ""
 
-# Verifica se está dentro de um repositório Git
 if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
     echo -e "${RED}Este diretório não é um repositório Git.${RESET}"
     exit 1
 fi
 
-# Limpa builds Gradle
 echo -e "${YELLOW}→ Limpando builds Gradle...${RESET}"
 ./gradlew clean >/dev/null 2>&1 && \
 echo -e "${GREEN}Gradle clean concluído.${RESET}" || \
 echo -e "${RED}Erro ao executar gradlew clean.${RESET}"
 
-# Remove diretórios temporários e caches
 echo -e "${YELLOW}→ Removendo diretórios temporários e caches locais...${RESET}"
 
 rm -rf \
@@ -63,18 +58,15 @@ rm -rf \
     .navigation/ \
     *.log *.tmp *.temp *.bak *.old *.orig 2>/dev/null
 
-# Remove apenas caches específicos da .idea
 rm -rf .idea/caches/ .idea/shelf/ .idea/workspace.xml .idea/tasks.xml \
        .idea/httpRequests .idea/navEditor.xml .idea/assetWizardSettings.xml 2>/dev/null
 
 echo -e "${GREEN}Diretórios temporários removidos.${RESET}"
 
-# Atualiza rastreamento Git de acordo com o .gitignore
 echo -e "${YELLOW}→ Atualizando rastreamento Git...${RESET}"
 git rm -r --cached . >/dev/null 2>&1
 git add . >/dev/null 2>&1
 
-# Pergunta se o usuário deseja criar o commit
 echo ""
 read -p "Deseja criar um commit agora para registrar as alterações? (s/N): " commit_decisao
 
@@ -97,13 +89,11 @@ else
     echo -e "${YELLOW}Commit automático ignorado. Alterações estão apenas no stage.${RESET}"
 fi
 
-# 4️⃣ Limpa cache Git
 echo -e "${YELLOW}→ Limpando cache interno do Git...${RESET}"
 git gc --prune=now >/dev/null 2>&1
 git reflog expire --expire=now --all >/dev/null 2>&1
 echo -e "${GREEN}✔ Cache interno do Git limpo.${RESET}"
 
-# 5️⃣ Feedback final
 echo ""
 echo -e "${BLUE}======================${RESET}"
 echo -e "${GREEN} Limpeza concluída!  ${RESET}"
