@@ -1,8 +1,8 @@
-# Clean Repo
+# Clean Repo - Android
 
 Script em Bash para realizar limpar (reestabelecer caches e ignorar arquivos de config. locais) em projetos Android e ressincronizar o rastreamento do Git.
 
-Útil após atualizar o `.gitignore` para sincronizar as mudanças com o rastreamento do gite e remover arquivos que foram versionados indevidamente, ou para resolver problemas de cache "fantasma" no Android Studio.
+Útil após atualizar o `.gitignore` para sincronizar as mudanças com o rastreamento do git e remover arquivos que foram versionados indevidamente, ou para resolver problemas de cache "fantasma" no Android Studio.
 
 ## Funcionalidades
 
